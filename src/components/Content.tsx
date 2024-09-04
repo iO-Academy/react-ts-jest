@@ -9,7 +9,7 @@ function Content() {
     const [countries, setCountries] = useState<Country[]>([])
 
     useEffect(() => {
-        fetch('countries.json')
+        fetch('http://localhost:5173/countries.json')
             .then(res => res.json())
             .then(data => {
                 setCountries(data)
@@ -24,7 +24,6 @@ function Content() {
                 <li key={country.code} data-code={country.code}>{country.name}</li>
             ))}
             </ul>
-
         </div>
     )
 }
