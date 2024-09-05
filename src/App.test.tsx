@@ -1,28 +1,21 @@
 import {render, screen, waitFor} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Content from "./Content";
+import App from "./App";
 import fetchMock from "jest-fetch-mock";
 
-describe("Content", () => {
+describe("App", () => {
     test("Renders correctly", async () => {
-        // jest-fetch-mock allows us to mock responses from fetch requests
         fetchMock.mockResponse(JSON.stringify([
             {
                 name: "United Kingdom",
                 code: "UK"
-            },
-            {
-                name: "France",
-                code: "FR"
             }
         ]))
 
-        render(<Content />)
+        render(<App />)
 
-        expect(screen.getByRole("heading")).toBeInTheDocument()
-
+        expect(screen.getByRole("navigation")).toBeInTheDocument()
+        expect(screen.getByText("Copyright")).toBeInTheDocument()
         expect(await screen.findByText("United Kingdom")).toBeInTheDocument()
-        expect(await screen.findByText("France")).toBeInTheDocument()
-
     })
 })

@@ -8,11 +8,10 @@ describe("Nav", () => {
         render(<Nav />)
 
         const logo = screen.getByText("Logo")
-        const menuButton = screen.getByText("Menu")
+        const menuButton = screen.getByRole("button")
 
         expect(logo).toBeInTheDocument()
         expect(menuButton).toBeInTheDocument()
-        expect(menuButton.tagName).toBe("BUTTON")
         expect(screen.queryByRole("menu")).not.toBeInTheDocument()
     })
 
@@ -23,8 +22,9 @@ describe("Nav", () => {
         const menuButton = screen.getByText("Menu")
 
         await user.click(menuButton)
-        expect(screen.queryByRole("menu")).toBeInTheDocument()
+        expect(screen.getByRole("menu")).toBeInTheDocument()
         await user.click(menuButton)
+        // We have to use queryBy* methods when looking for an element that does not exist
         expect(screen.queryByRole("menu")).not.toBeInTheDocument()
     })
 })
